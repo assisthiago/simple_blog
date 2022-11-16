@@ -7,3 +7,7 @@ def index(request):
 
 def articles(request):
     return render(request, 'articles.html')
+
+
+def detail(request, pk):
+    return render(request, 'detail.html')
