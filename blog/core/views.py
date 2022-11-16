@@ -11,3 +11,7 @@ def articles(request):
 
 def detail(request, pk):
     return render(request, 'detail.html')
+
+
+def settings(request, pk):
+    return render(request, 'settings.html')
