@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
@@ -9,4 +11,4 @@ urlpatterns = [
     path('articles/<uuid:pk>', blog.core.views.detail),
     path('profile/<uuid:pk>', blog.core.views.settings),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

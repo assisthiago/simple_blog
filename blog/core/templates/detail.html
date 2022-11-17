@@ -3,14 +3,17 @@
 
 {% block content %}
 
-<h1 class="h1 mb-3">Fix form validation</h1>
+<h1 class="h1 mb-3">{{ article.headline }}</h1>
 
 <div class="row">
     <div class="col-12 mb-4">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="https://picsum.photos/1024/720" alt="Unsplash">
+                    <img class="d-block w-100" src="{{ article.photo.url }}" alt="{{ article.headline }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ article.description }}</h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -19,126 +22,70 @@
     <div class="col-lg-6 col-xxl-8">
         <div class="card">
             <div class="card-body">
-                <h5>Description</h5>
+                {% for paragraph in paragraphs %}
+                    {% if paragraph.title %}
+                        <h5>{{ paragraph.title }}</h5>
 
-                <p class="text-muted">
-                    Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-                    adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-                    pulvinar, hendrerit id, lorem.
-                </p>
-
-                <p class="text-muted">
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,
-                    consectetuer eget, posuere ut, mauris.
-                </p>
-
-                <h5>How to</h5>
-
-                <p class="text-muted">
-                    Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-                    adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-                    pulvinar, hendrerit id, lorem.
-                </p>
-
-                <p class="text-muted">
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,
-                    consectetuer eget, posuere ut, mauris.
-                </p>
-
-                <h5>Final</h5>
-
-                <p class="text-muted">
-                    Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet
-                    adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-                    pulvinar, hendrerit id, lorem.
-                </p>
-
-                <p class="text-muted">
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a,
-                    consectetuer eget, posuere ut, mauris.
-                </p>
+                        <p class="text-muted">{{ paragraph.content }}</p>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Comments (4)</h5>
+                <h5 class="card-title mb-0">Comments ({{ comments|length }})</h5>
             </div>
             <div class="card-body">
-                <div class="d-flex align-items-start">
-                    <div class="flex-grow-1">
-                        <p class="mb-2"><strong>Ashley Briggs</strong></p>
-                        <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit
-                            amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit
-                            vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.</p>
-                        <small class="text-muted">30 de maio de 2022 às 19:37</small><br>
-                    </div>
-                </div>
+                {% if comments %}
 
-                <hr>
-                <div class="d-flex align-items-start">
-                    <div class="flex-grow-1">
-                        <p class="mb-2"><strong>Chris Wood</strong></p>
-                        <p>
-                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit
-                            amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-                            pulvinar, hendrerit id, lorem.
-                        </p>
-                        <small class="text-muted">30 de maio de 2022 às 19:37</small><br>
-                    </div>
-                </div>
+                    {% for comment in comments %}
+                        <div class="d-flex align-items-start">
+                            <div class="flex-grow-1">
+                                <p class="mb-2"><strong>{{ comment.first_name }} {{ comment.last_name }}</strong></p>
+                                <p>{{ comment.content }}</p>
+                                <small class="text-muted">{{ comment.created_at }}</small><br>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
 
-                <hr>
-                <div class="d-flex align-items-start">
-                    <div class="flex-grow-1">
-                        <p class="mb-2">Autor <strong>Thiago Assis</strong></p>
-                        <p>
-                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit
-                            amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus
-                            pulvinar, hendrerit id, lorem.
-                        </p>
-                        <small class="text-muted">30 de maio de 2022 às 19:37</small><br>
+                {% else %}
+                    <div class="d-flex align-items-start">
+                        <div class="flex-grow-1">
+                            <p class="text-center h5 mb-3">Estamos aguardando seu comentário<br>
+                        </div>
                     </div>
-                </div>
+                    <hr>
+                {% endif %}
 
-                <hr>
-                <div class="d-flex align-items-start">
-                    <div class="flex-grow-1">
-                        <p class="mb-2"><strong>Ashley Briggs</strong></p>
-                        <p>Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit
-                            amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit
-                            vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.</p>
-                        <small class="text-muted">30 de maio de 2022 às 19:37</small><br>
-                    </div>
-                </div>
-
-                <hr>
                 <div class="card mb-0">
                     <div class="card-body">
                         <form>
                             <div class="row">
                                 <div class="mb-3 col-12 col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="first_name" placeholder="Coloque seu nome">
+                                        <input type="text" class="form-control" id="first_name"
+                                            placeholder="Coloque seu nome">
                                         <label for="first_name">Nome</label>
                                     </div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="last_name" placeholder="Coloque seu sobrenome">
+                                        <input type="text" class="form-control" id="last_name"
+                                            placeholder="Coloque seu sobrenome">
                                         <label for="last_name">Sobrenome</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="email" placeholder="first_name@last_name.com">
+                                <input type="email" class="form-control" id="email"
+                                    placeholder="first_name@last_name.com">
                                 <label for="email">E-mail</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" placeholder="Deixe seu comentário aqui" id="comment" style="height: 100px"></textarea>
+                                <textarea class="form-control" placeholder="Deixe seu comentário aqui" id="comment"
+                                    style="height: 100px"></textarea>
                                 <label for="comment">Comentário</label>
                             </div>
 
@@ -154,35 +101,29 @@
     <div class="col-lg-6 col-xxl-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Information</h5>
+                <h5 class="card-title mb-0">Sobre o artigo</h5>
             </div>
             <div class="card-body">
 
                 <dl class="row">
                     <dt class="col-4 col-xxl-3 mb-0">Autor</dt>
                     <dd class="col-8 col-xxl-9 mb-0">
-                        <p class="mb-1">Thiago Assis</p>
+                        <p class="mb-1">{{ article.author.first_name }} {{ article.author.last_name }}</p>
                     </dd>
                 </dl>
                 <dl class="row">
                     <dt class="col-4 col-xxl-3 mb-0">E-mail</dt>
                     <dd class="col-8 col-xxl-9 mb-0">
-                        <p class="mb-1">thiago.medassis@gmail.com</p>
+                        <p class="mb-1">{{ article.author.email }}</p>
                     </dd>
                 </dl>
 
                 <hr>
 
                 <dl class="row">
-                    <dt class="col-4 col-xxl-3 mb-0">Criado</dt>
+                    <dt class="col-4 col-xxl-3 mb-0">Publicação</dt>
                     <dd class="col-8 col-xxl-9 mb-0">
-                        <p class="mb-1">30 de maio de 2022</p>
-                    </dd>
-                </dl>
-                <dl class="row">
-                    <dt class="col-4 col-xxl-3 mb-0">Atualizado</dt>
-                    <dd class="col-8 col-xxl-9 mb-0">
-                        <p class="mb-1">30 de maio de 2022</p>
+                        <p class="mb-1">{{ article.pub_date }}</p>
                     </dd>
                 </dl>
             </div>

@@ -6,98 +6,38 @@
 <h1 class="h1 mb-3">Últimos artigos</h1>
 
 <div class="row">
-    <div class="col-12 col-md-6 col-lg-3">
-        <div class="card">
+    {% if articles %}
+        {% for article in articles %}
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
 
-            <img class="card-img-top" src="https://picsum.photos/1280/720" alt="Unsplash">
+                    <img class="card-img-top" src="{{ article.photo.url }}" alt="{{ article.headline }}">
 
-            <div class="card-header px-4 pt-4">
-                <h5 class="card-title mb-0">Fix form validation</h5>
-                <div class="badge bg-primary my-2">30 de maio de 2022</div>
+                    <div class="card-header px-4 pt-4">
+                        <h5 class="card-title mb-0">{{ article.headline }}</h5>
+                        <div class="badge bg-primary my-2">{{ article.pub_date }}</div>
+                    </div>
+                    <div class="card-body px-4 pt-2">
+                        <p>{{ article.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-4 pb-4">
+                            <p class="mb-2 fw-bold">
+                                {{ article.author.first_name }} {{ article.author.last_name }}
+                                <a href="articles/{{ article.id }}" class="btn btn-sm btn-primary float-end">Ler</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="card-body px-4 pt-2">
-                <p>
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris.
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item px-4 pb-4">
-                    <p class="mb-2 fw-bold">Thiago Assis <a href="articles/4c49b0e0-a9a6-4cb9-81ed-88bfd4f5a4d6" class="btn btn-sm btn-primary float-end">Ler</a></p>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-        <div class="card">
 
-            <img class="card-img-top" src="https://picsum.photos/1280/720" alt="Unsplash">
-
-            <div class="card-header px-4 pt-4">
-                <h5 class="card-title mb-0">Fix form validation</h5>
-                <div class="badge bg-primary my-2">30 de maio de 2022</div>
+            <div class="d-grid">
+                <a href="/articles" class="btn btn-primary">Carregar mais</a>
             </div>
-            <div class="card-body px-4 pt-2">
-                <p>
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris.
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item px-4 pb-4">
-                    <p class="mb-2 fw-bold">Thiago Assis <a href="articles/4c49b0e0-a9a6-4cb9-81ed-88bfd4f5a4d6" class="btn btn-sm btn-primary float-end">Ler</a></p>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-        <div class="card">
-
-            <img class="card-img-top" src="https://picsum.photos/1280/720" alt="Unsplash">
-
-            <div class="card-header px-4 pt-4">
-                <h5 class="card-title mb-0">Fix form validation</h5>
-                <div class="badge bg-primary my-2">30 de maio de 2022</div>
-            </div>
-            <div class="card-body px-4 pt-2">
-                <p>
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris.
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item px-4 pb-4">
-                    <p class="mb-2 fw-bold">Thiago Assis <a href="articles/4c49b0e0-a9a6-4cb9-81ed-88bfd4f5a4d6" class="btn btn-sm btn-primary float-end">Ler</a></p>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-        <div class="card">
-
-            <img class="card-img-top" src="https://picsum.photos/1280/720" alt="Unsplash">
-
-            <div class="card-header px-4 pt-4">
-                <h5 class="card-title mb-0">Fix form validation</h5>
-                <div class="badge bg-primary my-2">30 de maio de 2022</div>
-            </div>
-            <div class="card-body px-4 pt-2">
-                <p>
-                    Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                    ipsum. Sed aliquam ultrices mauris.
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item px-4 pb-4">
-                    <p class="mb-2 fw-bold">Thiago Assis <a href="articles/4c49b0e0-a9a6-4cb9-81ed-88bfd4f5a4d6" class="btn btn-sm btn-primary float-end">Ler</a></p>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="d-grid">
-        <a href="/articles" class="btn btn-primary">Carregar mais</a>
-    </div>
+        {% endfor %}
+    {% else %}
+        <p class="h4">Nenhum artigo encontrado</p>
+    {% endif %}
 
 </div>
 

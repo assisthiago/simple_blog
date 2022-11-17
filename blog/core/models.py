@@ -8,6 +8,7 @@ class Article(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     headline = models.CharField(max_length=100, verbose_name='cabeçalho')
     description = models.CharField(max_length=160, verbose_name='descrição')
+    photo = models.ImageField(upload_to='img', max_length=256)
     pub_date = models.DateTimeField(null=True, default=None, verbose_name='publicação')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='criado em')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='atualizado em')
