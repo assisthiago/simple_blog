@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 
 from blog.core.forms import CommentForm
 from blog.core.models import Article, Comment
@@ -12,7 +13,12 @@ def index(request):
 
 def articles(request):
     articles = Article.objects.all()
-    context = {'articles': articles}
+    paginator = Paginator(articles, 20)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj}
     return render(request, 'articles.html', context)
 
 
