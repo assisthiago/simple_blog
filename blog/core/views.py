@@ -12,8 +12,14 @@ def index(request):
 
 
 def articles(request):
-    articles = Article.objects.all()
-    paginator = Paginator(articles, 20)
+    if request.method == 'POST':
+        headline = request.POST.get('headline')
+        articles = Article.objects.filter(headline__icontains=headline)
+        paginator = Paginator(articles, 1000)
+
+    else:
+        articles = Article.objects.all()
+        paginator = Paginator(articles, 20)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

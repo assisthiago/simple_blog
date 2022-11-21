@@ -23,6 +23,7 @@ class Article(models.Model):
     class Meta:
         db_table = 'article'
         verbose_name = 'artigo'
+        ordering = ['-pub_date']
 
 
 class Paragraph(models.Model):
@@ -62,3 +63,4 @@ class Comment(models.Model):
     class Meta:
         db_table = 'comment'
         verbose_name = 'comentário'
+        ordering = ['-created_at']
